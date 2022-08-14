@@ -100,7 +100,7 @@ You can do this in your Github, either as "redeliver" if you already had sent on
 
 
 ## API Endpoints
-The application offers tjree endpoints:
+The application offers the following endpoints:
 1. **POST: /forward_webhook** - target to which a GitHub webhook delivery can be pointed.
 1. **POST: /receive_webhook** - testing endpoint to help troubleshoot your setup, simply takes and outputs a given JSON payload.
 1. **GET: /status** - aliveness check, returns status:alive and a checksum based on the main.py to help with broad version tracking.
