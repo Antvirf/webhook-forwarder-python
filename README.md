@@ -1,6 +1,8 @@
 # Webhook Forwarder API
 ![Pytests](https://github.com/Antvirf/webhook-forwarder/actions/workflows/python-tests.yml/badge.svg)
+![Pytest coverage](./tests/coverage.svg)
 ![Python Versions](https://img.shields.io/badge/python-3.8%20|%203.9%20|%203.10%20-blue)
+
 
 A Python FastAPI-based application intended to forward Github webhooks, primarily to a protected Jenkins instance.
 
