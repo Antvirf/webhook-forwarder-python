@@ -1,6 +1,7 @@
 # Webhook Forwarder API
 ![Pytests](https://github.com/Antvirf/webhook-forwarder/actions/workflows/python-tests.yml/badge.svg)
 ![Pytest coverage](./tests/coverage.svg)
+![CodeQL](https://github.com/Antvirf/webhook-forwarder/actions/workflows/codeql.yml/badge.svg)
 ![Python Versions](https://img.shields.io/badge/python-3.8%20|%203.9%20|%203.10%20-blue)
 
 
