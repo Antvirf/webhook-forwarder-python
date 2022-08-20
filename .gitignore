@@ -1,5 +1,6 @@
 htmlcov/
 .DS_Store
+meta_api_output.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

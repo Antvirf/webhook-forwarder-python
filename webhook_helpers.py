@@ -2,8 +2,8 @@
 import hashlib
 import hmac
 import ipaddress
+import json
 import logging
-from cgi import test
 
 import requests
 from fastapi import HTTPException
@@ -80,3 +80,17 @@ def validate_if_sender_is_github(sender_ip,
         check_if_ip_in_cidr_range(sender_ip, github_ips),
         check_if_ip_in_cidr_range(sender_x_ip, github_ips)
     ])
+
+
+def fetch_github_meta_api_result_to_file(url=r"https://api.github.com/meta"):
+    """Save github meta api query to file"""
+    r = requests.get(url)
+    with open("meta_api_output.json", "w") as writer:
+        json.dump(r.json(), writer, indent=4)
+
+
+def read_local_github_meta_api_result(path="json"):
+    """Reads locally saved GitHub meta api data, returns list of accepted hook ids"""
+    with open("meta_api_output.json", "r") as reader:
+        allowed_hook_ips = json.load(reader)["hooks"]
+        return allowed_hook_ips

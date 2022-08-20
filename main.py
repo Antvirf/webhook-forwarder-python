@@ -31,11 +31,14 @@ except KeyError:
     # can use any test target
     logger.error(
         "Environment configuration variables not found, using test value defaults.")
-    TARGET_URL = "http://127.0.0.1:7000"
+    TARGET_URL = "http://receiver:9001/receive_webhook"
     # "https://e.g.jenkins.com/github-webhook/"
     WEBHOOK_TOKEN_SECRET = "hello"
 
 app = FastAPI()
+
+# On start, query GitHub meta endpoint
+webhook_helpers.fetch_github_meta_api_result_to_file()
 
 
 @app.get("/status")
@@ -52,11 +55,21 @@ async def forward_webhook(request: Request):
     """Primary functionality to forward webhook to a given target address. Validates signature
     and sender IP before forwarding the payload."""
 
+    # read github meta api result locally, if available
+    allowed_hook_ips = webhook_helpers.read_local_github_meta_api_result()
+
     # first check: sender IP
     sender_ip = request.client.host
     sender_x_ip = request.headers.get("x-client-ip")
+
+    # if behind ngrok, sender_x_ip may also be x-forwarded-for
+    if not sender_x_ip:
+        sender_x_ip = request.headers.get("x-forwarded-for")
+
     sender_is_github = webhook_helpers.validate_if_sender_is_github(
-        sender_ip, sender_x_ip)
+        sender_ip=sender_ip,
+        sender_x_ip=sender_x_ip,
+        allowed_list=allowed_hook_ips)
 
     if not sender_is_github:
         logger.warning("sender_ip: %s or x-ip %s is not a github IP",

@@ -1,9 +1,17 @@
 services:
-  app:
+  forwarder:
     build: .
     container_name: webhook_forwarder
     command: uvicorn main:app --host 0.0.0.0 --port 80 --reload
     ports:
-      - 8080:80
+      - 8000:80
+    volumes:
+      - .:/app
+  receiver:
+    build: .
+    container_name: webhook_receiver
+    command: uvicorn main:app --host 0.0.0.0 --port 9001 --reload
+    ports:
+      - 9001:9001
     volumes:
       - .:/app
