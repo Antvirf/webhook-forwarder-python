@@ -4,7 +4,6 @@ a different webserver.
 To start the server, in Azure App service use:
 gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
 """
-import json
 import logging
 import os
 import sys
@@ -32,7 +31,7 @@ except KeyError:
     # can use any test target
     logger.error(
         "Environment configuration variables not found, using test value defaults.")
-    TARGET_URL = "http://receiver:9001"
+    TARGET_URL = "http://receiver:9001/receive_webhook"
     # "https://e.g.jenkins.com/github-webhook/"
     WEBHOOK_TOKEN_SECRET = "hello"
 
