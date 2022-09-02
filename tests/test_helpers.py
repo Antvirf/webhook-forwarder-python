@@ -5,14 +5,14 @@ from unittest.mock import patch
 import fastapi
 import pytest
 import requests
-from webhook_helpers import (check_if_ip_in_cidr_range,
+from webhook_helpers import (check_if_ip_in_cidr_range, clean_input_ip,
                              compute_sha256_hmac_digest, create_main_checksum,
                              validate_if_sender_is_github,
                              validate_payload_signature)
 
 TEST_KEY = "key"
 TEST_BODY = "lorem ipsum"
-SIGNATURE_EXPECTED_OUTPUT = '5c79c03ad01749b1f7056b1d2ac008a5c5a52fc456565b71674267a3c8f3d8c3'
+SIGNATURE_EXPECTED_OUTPUT = 'sha256=5c79c03ad01749b1f7056b1d2ac008a5c5a52fc456565b71674267a3c8f3d8c3'
 TEST_NON_GITHUB_IP = "14.197.102.222"
 TEST_GITHUB_IP = "192.30.252.0"
 TEST_GITHUB_IP_RANGE = "192.30.252.0/22"
@@ -22,14 +22,14 @@ def test_create_main_checksum():
     """Test that the main checksum behaves as expected."""
     with open('main.py', 'r') as reader:
         content = reader.read()
-    assert hashlib.md5(content.encode('utf-8')
-                       ).hexdigest() == create_main_checksum()
+    assert hashlib.sha256(content.encode('utf-8')
+                          ).hexdigest() == create_main_checksum()
 
 
 def test_compute_sha256_hmac_digest():
     """Test sha256 hmac digest against a pre-computed value set"""
 
-    assert compute_sha256_hmac_digest(
+    assert "sha256="+compute_sha256_hmac_digest(
         TEST_KEY,
         TEST_BODY
     ) == SIGNATURE_EXPECTED_OUTPUT
@@ -40,7 +40,7 @@ def test_validate_payload_signature_valid():
     assert validate_payload_signature(
         TEST_BODY,
         TEST_KEY,
-        "sha256="+SIGNATURE_EXPECTED_OUTPUT
+        SIGNATURE_EXPECTED_OUTPUT
     ) is True
 
 
@@ -49,7 +49,7 @@ def test_validate_payload_signature_invalid_incorrect_key():
     assert validate_payload_signature(
         TEST_BODY,
         "incorrect key!",
-        "sha256="+SIGNATURE_EXPECTED_OUTPUT
+        SIGNATURE_EXPECTED_OUTPUT
     ) is False
 
 
@@ -58,7 +58,7 @@ def test_validate_payload_signature_invalid_incorrect_body():
     assert validate_payload_signature(
         "incorrect body!",
         TEST_KEY,
-        "sha256="+SIGNATURE_EXPECTED_OUTPUT
+        SIGNATURE_EXPECTED_OUTPUT
     ) is False
 
 
@@ -67,7 +67,7 @@ def test_validate_payload_signature_invalid_incorrect_signature():
     assert validate_payload_signature(
         TEST_BODY,
         TEST_KEY,
-        "sha256="+SIGNATURE_EXPECTED_OUTPUT+"this is now wrong!"
+        SIGNATURE_EXPECTED_OUTPUT+"this is now wrong!"
     ) is False
 
 
@@ -145,3 +145,18 @@ def test_error_raised_for_failed_api_query():
     with patch('requests.get', side_effect=requests.exceptions.ConnectionError):
         with pytest.raises(fastapi.HTTPException):
             validate_if_sender_is_github(None, None)
+
+
+def test_clean_input_ip_none():
+    """Ensures None is returned with None as input"""
+    assert clean_input_ip(None) == None
+
+
+def test_clean_input_ip_garbage():
+    """Ensures None is returned with garbage as input"""
+    assert clean_input_ip("dwafh__/??!>") == None
+
+
+def test_clean_input_ip_valid():
+    """Ensures None is returned with None as input"""
+    assert clean_input_ip(TEST_NON_GITHUB_IP) == TEST_NON_GITHUB_IP
