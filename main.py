@@ -62,6 +62,10 @@ async def forward_webhook(request: Request):
     sender_ip = request.client.host
     sender_x_ip = request.headers.get("x-client-ip")
 
+    # clean input
+    sender_ip = webhook_helpers.clean_input_ip(sender_ip)
+    sender_x_ip = webhook_helpers.clean_input_ip(sender_x_ip)
+
     # if behind ngrok, sender_x_ip may also be x-forwarded-for
     if not sender_x_ip:
         sender_x_ip = request.headers.get("x-forwarded-for")
@@ -84,6 +88,11 @@ async def forward_webhook(request: Request):
 
     payload_body_text = bytes.decode(request_body)
     payld_signature = request.headers.get('x-hub-signature-256')
+
+    # sanitize/destroy signature
+    if payld_signature is not None:
+        if not payld_signature.isalnum():
+            payld_signature = None
 
     signature_validation = webhook_helpers.validate_payload_signature(
         payload_body_text,
