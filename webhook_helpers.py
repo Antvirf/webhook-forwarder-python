@@ -15,7 +15,7 @@ def create_main_checksum():
     """MD5 checksum based on contents of main.py"""
     with open('main.py', 'r') as reader:
         content = reader.read()
-    return hashlib.md5(
+    return hashlib.sha256(
         content.encode('utf-8')
     ).hexdigest()
 
@@ -89,8 +89,18 @@ def fetch_github_meta_api_result_to_file(url=r"https://api.github.com/meta"):
         json.dump(r.json(), writer, indent=4)
 
 
-def read_local_github_meta_api_result(path="json"):
+def read_local_github_meta_api_result(path="meta_api_output.json"):
     """Reads locally saved GitHub meta api data, returns list of accepted hook ids"""
-    with open("meta_api_output.json", "r") as reader:
+    with open(path, "r") as reader:
         allowed_hook_ips = json.load(reader)["hooks"]
         return allowed_hook_ips
+
+
+def clean_input_ip(ip):
+    """Returns None if IP is unclean, otherwise returns the IP"""
+    if ip is None:
+        return None
+
+    if str(ip).replace(".", "").isalnum():
+        return ip
+    return None
