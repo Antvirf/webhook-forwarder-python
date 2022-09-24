@@ -1,4 +1,4 @@
-# Webhook Forwarder API
+# Webhook forwarder API in Python
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Antvirf_webhook-forwarder&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Antvirf_webhook-forwarder)
 ![Pytests](https://github.com/Antvirf/webhook-forwarder/actions/workflows/python-tests.yml/badge.svg)
 ![Pytest coverage](./tests/coverage.svg)
