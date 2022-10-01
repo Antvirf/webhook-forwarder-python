@@ -4,7 +4,7 @@
 ![Pytest coverage](./tests/coverage.svg)
 ![CodeQL](https://github.com/Antvirf/webhook-forwarder/actions/workflows/codeql.yml/badge.svg)
 ![Python Versions](https://img.shields.io/badge/python-3.8%20|%203.9%20|%203.10%20-blue)
-
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Antvirf/webhook-forwarder-python/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Antvirf/webhook-forwarder-python/tree/main)
 
 A Python FastAPI-based application intended to forward Github webhooks, primarily to a protected Jenkins instance.
 
