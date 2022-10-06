@@ -1,10 +1,11 @@
 # Webhook forwarder API in Python
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Antvirf_webhook-forwarder&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Antvirf_webhook-forwarder)
+![CodeQL](https://github.com/Antvirf/webhook-forwarder/actions/workflows/codeql.yml/badge.svg)
+![Vulnerabilities](https://snyk.io/test/github/Antvirf/webhook-forwarder-python/badge.svg)
 ![Pytests](https://github.com/Antvirf/webhook-forwarder/actions/workflows/python-tests.yml/badge.svg)
 ![Pytest coverage](./tests/coverage.svg)
-![CodeQL](https://github.com/Antvirf/webhook-forwarder/actions/workflows/codeql.yml/badge.svg)
-![Python Versions](https://img.shields.io/badge/python-3.8%20|%203.9%20|%203.10%20-blue)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Antvirf/webhook-forwarder-python/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Antvirf/webhook-forwarder-python/tree/main)
+![Python Versions](https://img.shields.io/badge/python-3.8%20|%203.9%20|%203.10%20-blue)
 
 A Python FastAPI-based application intended to forward Github webhooks, primarily to a protected Jenkins instance.
 
