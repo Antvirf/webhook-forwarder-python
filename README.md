@@ -3,7 +3,7 @@
 ![CodeQL](https://github.com/Antvirf/webhook-forwarder/actions/workflows/codeql.yml/badge.svg)
 ![Vulnerabilities](https://snyk.io/test/github/Antvirf/webhook-forwarder-python/badge.svg)
 ![Pytests](https://github.com/Antvirf/webhook-forwarder/actions/workflows/python-tests.yml/badge.svg)
-![Pytest coverage](./tests/coverage.svg)
+![Pytest coverage](./coverage.svg)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Antvirf/webhook-forwarder-python/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Antvirf/webhook-forwarder-python/tree/main)
 ![Python Versions](https://img.shields.io/badge/python-3.8%20|%203.9%20|%203.10%20-blue)
 

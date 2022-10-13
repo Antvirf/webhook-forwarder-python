@@ -1,3 +1,5 @@
 [report]
 exclude_lines =
     .*os.environ.*
+omit =
+    badgecreator.py
