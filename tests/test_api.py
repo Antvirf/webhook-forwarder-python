@@ -46,7 +46,7 @@ test_webhook_input_combinations = [
 
 @pytest.mark.parametrize("test_data", test_webhook_input_combinations)
 def test_forward_webhook(test_data, mocker):
-    """Test webhook forwarding endpoing with various inputs to ensure expected
+    """Test webhook forwarding endpoint with various inputs to ensure expected
     messages are communicated back from different types of issues."""
 
     mocker.patch(

@@ -18,7 +18,7 @@ def create_badge(text, value):
 if __name__ == "__main__":
     # compute coverage value
     coverage_value = subprocess.check_output(
-        "pytest --cov tests | grep 'TOTAL' | grep  -E -i -o '(\d+)%'", shell=True)
+        "pytest --cov tests | grep 'TOTAL' | grep  -E -i -o '([0-9]+)%'", shell=True)
 
     coverage_value = str(coverage_value.decode("utf-8")).strip()
     create_badge("coverage", coverage_value)
