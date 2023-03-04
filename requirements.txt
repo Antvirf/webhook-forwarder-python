@@ -8,3 +8,4 @@ httpx==0.23.3
 pytest-mock==3.10.0
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
 
+starlette>=0.25.0 # not directly required, pinned by Snyk to avoid a vulnerability
