@@ -1,4 +1,4 @@
-fastapi==0.94.0
+fastapi==0.95.1
 requests==2.30.0
 uvicorn==0.21.0
 gunicorn==20.1.0
