@@ -1,5 +1,5 @@
 fastapi==0.95.2
-requests==2.30.0
+requests==2.31.0
 uvicorn==0.22.0
 gunicorn==20.1.0
 uvloop==0.17.0
