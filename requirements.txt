@@ -2,7 +2,7 @@ fastapi==0.103.0
 requests==2.31.0
 uvicorn==0.23.2
 gunicorn==21.2.0
-uvloop==0.17.0
+uvloop==0.18.0
 httptools==0.6.0
 httpx==0.24.1
 pytest-mock==3.11.1
